@@ -12,13 +12,23 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id String @id @default(uuid())
   email String
-  password String
+  firstName String
+  lastName String
+  password String?
+  role Role @default(USER)
+  clerkId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   decks Deck[]
+  @@index([clerkId])
 }
 model Deck {
   id String @id @default(uuid())

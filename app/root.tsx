@@ -5,8 +5,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import "./tailwind.css";
-
+import { LoaderFunction } from "@remix-run/node"
+import "./tailwind.css"
+import { rootAuthLoader } from "@clerk/remix/ssr.server"
+import { ClerkApp } from "@clerk/remix"
+export const loader: LoaderFunction = (args) => rootAuthLoader(args);
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -17,7 +20,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="h-screen w-screen bg-slate-100">
+          {children}
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -25,6 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
-  return <Outlet />;
+function App() {
+  return <Outlet />
 }
+export default ClerkApp(App);

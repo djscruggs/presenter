@@ -1,14 +1,32 @@
 import prisma from './prisma.server'
 
 export const createUser = async (user: prisma.UserCreateInput): Promise<{ user: prisma.User }> => {
-  const data = {
+  const userData = {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
     clerkId: user.clerkId,
     password: user.password != null ? user.password : '',
   }
-  const newUser = await prisma.user.create({ data })
+  // have to create organization if it doesn't exist 
+  if(user.organizationId) {
+    userData.organization = {
+      connect: {
+        id: user.organizationId
+      }
+    }
+  } else {
+    const orgData = {
+      name: `${user.firstName}'s Organization`
+    }
+    const newOrg = await prisma.organization.create({ data: orgData })
+    userData.organization = {
+      connect: {
+        id: newOrg.id
+      }
+    }
+  }
+  const newUser = await prisma.user.create({ data: userData })
   return { user: newUser }
 }
 

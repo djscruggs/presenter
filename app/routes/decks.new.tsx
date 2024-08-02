@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async (args) => {
 }
 export default function Home() {
   return (
-    <div className="flex flex-col items-start h-screen">
+    <div className="flex flex-col items-start min-h-screen h-full">
       <h1 className="text-3xl">New Deck</h1>
     </div>
   )

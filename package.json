@@ -13,7 +13,9 @@
   "dependencies": {
     "@clerk/remix": "^4.2.8",
     "@dnd-kit/core": "^6.1.0",
+    "@heroicons/react": "^2.1.5",
     "@prisma/client": "^5.17.0",
+    "@react-oauth/google": "^0.12.1",
     "@remix-run/node": "^2.10.3",
     "@remix-run/react": "^2.10.3",
     "@remix-run/serve": "^2.10.3",
